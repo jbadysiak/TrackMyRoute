@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     public static final String EXTRA_MESSAGE = "com.example.jakubbadysiak.MESSAGE";
     private Intent intentMessage;
+    private Intent choosenIntent;
+    private String chooserTitle;
     private Intent intentMap;
     private StepDetector stepDetector;
     private SensorManager sensorManager;
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        chooserTitle = getString(R.string.chooser);
         batteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -65,7 +69,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         myPhoneListener = new MyPhoneListener();
         telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         telephonyManager.listen(myPhoneListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
-        intentMessage = new Intent(this, MessageActivity.class);
+        //intentMessage = new Intent(this, MessageActivity.class);
+        intentMap = new Intent(this, MapsActivity.class);
+        intentMessage = new Intent(Intent.ACTION_SEND);
+        choosenIntent = Intent.createChooser(intentMessage, chooserTitle);
+
 
         tvSteps = (TextView) findViewById(R.id.tvSteps);
         tvAccel = (TextView) findViewById(R.id.tvAccel);
@@ -107,9 +115,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 }
 
                 String message = phoneDetails.toString();
-                intentMessage.putExtra(EXTRA_MESSAGE, message);
-                startActivity(intentMessage);
 
+                //intentMessage.putExtra(EXTRA_MESSAGE, message);
+                //startActivity(intentMessage);
+                intentMessage.setType("text/plain");
+                intentMessage.putExtra(Intent.EXTRA_TEXT, message);
+                //startActivity(intentMessage);
+                startActivity(choosenIntent);
 
 
             }
