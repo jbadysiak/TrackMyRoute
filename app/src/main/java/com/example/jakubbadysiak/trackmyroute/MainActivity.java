@@ -30,7 +30,8 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements SensorEventListener, StepListener{
 
     public static final String EXTRA_MESSAGE = "com.example.jakubbadysiak.MESSAGE";
-    private Intent intent;
+    private Intent intentMessage;
+    private Intent intentMap;
     private StepDetector stepDetector;
     private SensorManager sensorManager;
     private BatteryManager batteryManager;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Button buttonStart;
     private Button buttonStop;
     private Button buttonReset;
+    private Button buttonMap;
     private TextView tvAccel;
     private String phoneDetails;
     private float x;
@@ -63,13 +65,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         myPhoneListener = new MyPhoneListener();
         telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         telephonyManager.listen(myPhoneListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
-        intent = new Intent(this, MessageActivity.class);
+        intentMessage = new Intent(this, MessageActivity.class);
 
         tvSteps = (TextView) findViewById(R.id.tvSteps);
         tvAccel = (TextView) findViewById(R.id.tvAccel);
         buttonStart = (Button) findViewById(R.id.btnStart);
         buttonStop = (Button) findViewById(R.id.btnStop);
         buttonReset = (Button) findViewById(R.id.btnReset);
+        buttonMap = (Button) findViewById(R.id.btnMap);
 
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,8 +107,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 }
 
                 String message = phoneDetails.toString();
-                intent.putExtra(EXTRA_MESSAGE, message);
-                startActivity(intent);
+                intentMessage.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intentMessage);
 
 
 
@@ -117,6 +120,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public void onClick(View view) {
                 numSteps = 0;
                 tvSteps.setText(TEXT_NUM_STEPS + numSteps);
+            }
+        });
+
+        buttonMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(intentMap);
             }
         });
 
