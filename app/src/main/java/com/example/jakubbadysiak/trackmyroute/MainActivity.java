@@ -44,13 +44,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView tvSteps;
     private Button buttonStart;
     private Button buttonStop;
-    private Button buttonReset;
     private Button buttonMap;
-    private TextView tvAccel;
     private String phoneDetails;
-    private float x;
-    private float y;
-    private float z;
+    private float x, y, z;
     private TelephonyManager telephonyManager;
     private MyPhoneListener myPhoneListener;
 
@@ -71,15 +67,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         telephonyManager.listen(myPhoneListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
         //intentMessage = new Intent(this, MessageActivity.class);
         intentMap = new Intent(this, MapsActivity.class);
+
         intentMessage = new Intent(Intent.ACTION_SEND);
         choosenIntent = Intent.createChooser(intentMessage, chooserTitle);
 
-
         tvSteps = (TextView) findViewById(R.id.tvSteps);
-        tvAccel = (TextView) findViewById(R.id.tvAccel);
         buttonStart = (Button) findViewById(R.id.btnStart);
         buttonStop = (Button) findViewById(R.id.btnStop);
-        buttonReset = (Button) findViewById(R.id.btnReset);
         buttonMap = (Button) findViewById(R.id.btnMap);
 
         buttonStart.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public void onClick(View view) {
                 numSteps = 0;
                 sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+                startService(intentMap);
             }
         });
 
@@ -97,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 sensorManager.unregisterListener(MainActivity.this);
                 batLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
                 phoneDetails = TEXT_NUM_STEPS + numSteps +"\nAccelerator: \nX = "+ x +"  Y = "+ y +"  Z = "+ z +"\nBattery = " +batLevel+ "%\nSignal GSM = " +myPhoneListener.signalStrengthValue+ "dB";
+
 
                 try{
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
@@ -124,14 +120,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 startActivity(choosenIntent);
 
 
-            }
-        });
-
-        buttonReset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                numSteps = 0;
-                tvSteps.setText(TEXT_NUM_STEPS + numSteps);
             }
         });
 

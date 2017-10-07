@@ -36,15 +36,6 @@
         android:layout_above="@+id/btnMap"
         android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnReset"
-        android:text="Reset Pedometer"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="15dp" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
