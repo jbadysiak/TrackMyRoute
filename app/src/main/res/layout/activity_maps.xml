@@ -1,8 +1,80 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.jakubbadysiak.trackmyroute.MapsActivity" />
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="192dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/B_search"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:onClick="onClick"
+            android:text="Search" />
+
+        <Button
+            android:id="@+id/btnTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onClick"
+            android:text="To" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <Button
+            android:id="@+id/btnHospitals"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="Hospitals" />
+
+        <Button
+            android:id="@+id/btnRestaurants"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="Restaurants" />
+
+        <Button
+            android:id="@+id/btnGym"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="Gym" />
+    </LinearLayout>
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        tools:context="com.example.jakubbadysiak.trackmyroute.MapsActivity"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

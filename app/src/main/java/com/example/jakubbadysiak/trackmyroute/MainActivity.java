@@ -49,12 +49,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private float x, y, z;
     private TelephonyManager telephonyManager;
     private MyPhoneListener myPhoneListener;
+    private double longitude, latitude;
+    private MapsActivity mapsActivity;
+    private double altitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         chooserTitle = getString(R.string.chooser);
         batteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public void onClick(View view) {
                 numSteps = 0;
                 sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+                mapsActivity = new MapsActivity();
                 startService(intentMap);
             }
         });
@@ -89,9 +92,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onClick(View view) {
 
+                latitude = mapsActivity.getLatitude();
+                longitude = mapsActivity.getLongitude();
+                altitude = mapsActivity.getAltitude();
                 sensorManager.unregisterListener(MainActivity.this);
                 batLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-                phoneDetails = TEXT_NUM_STEPS + numSteps +"\nAccelerator: \nX = "+ x +"  Y = "+ y +"  Z = "+ z +"\nBattery = " +batLevel+ "%\nSignal GSM = " +myPhoneListener.signalStrengthValue+ "dB";
+                phoneDetails = "Map data: \nLatitude="+latitude+"\nLongitude="+longitude+"\nAltitude="+altitude+"\n"+ TEXT_NUM_STEPS + numSteps +"\nAccelerator: \nX = "+ x +"  Y = "+ y +"  Z = "+ z +"\nBattery = " +batLevel+ "%\nSignal GSM = " +myPhoneListener.signalStrengthValue+ "dB";
 
 
                 try{
