@@ -1,4 +1,4 @@
-package com.example.jakubbadysiak.trackmyroute;
+package com.example.jakubbadysiak.trackmyroute.SearchNearbyPlaces;
 
 import org.json.JSONArray;
 import org.json.JSONException;

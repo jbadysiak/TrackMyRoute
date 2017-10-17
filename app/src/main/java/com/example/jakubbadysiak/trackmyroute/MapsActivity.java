@@ -1,6 +1,7 @@
 package com.example.jakubbadysiak.trackmyroute;
 
 import android.Manifest;
+import android.app.Service;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -16,8 +17,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.jakubbadysiak.trackmyroute.SearchNearbyPlaces.GetNearbyPlacesData;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
